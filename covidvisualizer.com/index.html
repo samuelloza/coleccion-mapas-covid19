@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>COVID-19 Visualizer</title>
+    <!-- Meta -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Navid Mamoon and Gabriel Rasskin" />
+    <meta name="description"
+        content="An interactive COVID-19 visualizer (coronavirus) that highlights countries around the world based on the most recent cases." />
+    <meta name="keywords"
+        content="COVID,visualizer,COVID-19,Coronavirus,map,visualization,disease,plague,covid visualizer,visualiser,covidvisualizer,covid-19 visualizer,coronavirus visualizer,covid-19 visualiser" />
+    <meta name="robots" content="index, follow" />
+    <!-- Open Graph -->
+    <meta property="og:title" content="COVID-19 Visualizer" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="//www.covidvisualizer.com/assets/opengraph.png" />
+    <meta property="og:url" content="//www.covidvisualizer.com" />
+    <meta property="og:description" content="An interactive COVID-19 (coronavirus) visualizer that highlights countries around the world based on the most recent cases." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@navidmx" />
+    <meta name="twitter:title" content="COVID-19 Visualizer" />
+    <meta name="twitter:image" content="https://www.covidvisualizer.com/assets/opengraph.png" />
+    <!-- CSS / Favicon -->
+    <link href="assets/style.min.css" rel="stylesheet" />
+    <link rel="icon" href="assets/favicon.png" />
+    <!-- JavaScript -->
+    <script src="lib/miniature.earth.js" type="42c53f4d953602f533410ab4-text/javascript"></script>
+    <script src="lib/particles.min.js" type="42c53f4d953602f533410ab4-text/javascript"></script>
+    <script src="lib/micromodal.min.js" type="42c53f4d953602f533410ab4-text/javascript"></script>
+    <script src="lib/countUp.min.js" type="42c53f4d953602f533410ab4-text/javascript"></script>
+    <script src="lib/jquery.min.js" defer type="42c53f4d953602f533410ab4-text/javascript"></script>
+    <script src="assets/script.js" defer type="42c53f4d953602f533410ab4-text/javascript"></script>
+    <script async src='https://www.covidvisualizer.com/cdn-cgi/bm/cv/2172558837/api.js'></script></head>
+
+<body>
+    <div id="particles"></div>
+    <div id="blackout"></div>
+    <div id="globe"></div>
+    <div id="header">
+        <h1>COVID-19</h1>
+        <p>Click on a country or territory to see cases, deaths, and recoveries.</p>
+    </div>
+    <div id="legend">
+        <p>Legend (active cases)</p>
+        <div class="legend-marker" id="legend-start">0</div>
+        <div class="legend-marker" id="legend-end">Loading...</div>
+        <div id="gradient"></div>
+    </div>
+    <div id="loader"></div>
+    <div id="footer">
+        <p>
+            <span class="tiny">TOTAL COUNTS</span><br/>
+            ACTIVE:&nbsp;<span id="total-cases">0</span><span id="total-count" class="tiny"></span>
+            <span class="muted">&#8226;</span>
+            &nbsp;DEATHS:&nbsp;<span id="total-deaths">0</span><span id="mortality-rate" class="tiny"></span>
+            <span class="muted">&#8226;</span>
+            &nbsp;RECOVERIES:&nbsp;<span id="total-recovered">0</span><span id="recovery-rate" class="tiny"></span>
+        </p>
+        <button id="more-info-button" data-micromodal-trigger="more-info">MORE INFORMATION</button>
+    </div>
+    <div class="modal micromodal-slide" id="more-info" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="more-info-title">
+                <header class="modal__header">
+                    <h2 class="modal__title" id="more-info-title">
+                        More Information
+                    </h2>
+                    <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                </header>
+                <main class="modal__content" id="more-info-content">
+                    <p class="muted">
+                        Data last update<span id="timestamp"> [loading...]</span> by
+                        <a href="https://www.worldometers.info/coronavirus/" target="_blank">Worldometers</a>.
+                    </p>
+                    <br />
+                    <p>
+                        This website was developed by
+                        <a href="https://navidmx.com/" target="_blank">Navid Mamoon</a>
+                        and <a href="https://github.com/grasskin/" target="_blank">Gabriel Rasskin</a>,
+                        two students at Carnegie Mellon University.
+                        <br /><br />
+                        The goal of this project is to provide a simple, interactive
+                        way to visualize the impact of COVID-19. We wanted people to
+                        be able to see this as something that brings us all together.
+                        It's not one country, or another country; it's one planet –
+                        and this is what our planet looks like today.
+                        <br /><br />
+                        The data is from
+                        <a href="https://www.worldometers.info/coronavirus/">Worldometer's</a>
+                        real-time updates, utilizing reliable sources from around the world.
+                        The <em>TODAY</em> cases/deaths are based on GMT (+0). The website
+                        pulls new data every 2 minutes, refresh to see any changes.
+                        <br /><br />
+                        If you have questions, suggestions, or feedback, please <a href="cdn-cgi/l/email-protection.html#5a39352c333e2c33292f3b3633203f281a3d373b333674393537" target="_blank">send us an email</a>!
+                    </p>
+                    <span>Share this website:</span>
+                        <!-- Facebook -->
+                        <a class="resp-sharing-button__link"
+                            href="https://facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcovidvisualizer.com"
+                            target="_blank" rel="noopener" aria-label="">
+                            <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small">
+                                <div aria-hidden="true"
+                                    class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path
+                                            d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Twitter -->
+                        <a class="resp-sharing-button__link"
+                            href="https://twitter.com/intent/tweet/?text=&amp;url=https%3A%2F%2Fcovidvisualizer.com"
+                            target="_blank" rel="noopener" aria-label="">
+                            <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small">
+                                <div aria-hidden="true"
+                                    class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path
+                                            d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- E-Mail -->
+                        <a class="resp-sharing-button__link" href="cdn-cgi/l/email-protection.html#e9d69a9c8b838c8a9dd4cf888499d28b868d90d4819d9d999accdaa8ccdbafccdbaf8a869f808d9f809a9c888580938c9bc78a8684" target="_self" rel="noopener" aria-label="">
+                            <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--small">
+                                <div aria-hidden="true"
+                                    class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path
+                                            d="M22 4H2C.9 4 0 4.9 0 6v12c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.25 14.43l-3.5 2c-.08.05-.17.07-.25.07-.17 0-.34-.1-.43-.25-.14-.24-.06-.55.18-.68l3.5-2c.24-.14.55-.06.68.18.14.24.06.55-.18.68zm4.75.07c-.1 0-.2-.03-.27-.08l-8.5-5.5c-.23-.15-.3-.46-.15-.7.15-.22.46-.3.7-.14L12 13.4l8.23-5.32c.23-.15.54-.08.7.15.14.23.07.54-.16.7l-8.5 5.5c-.08.04-.17.07-.27.07zm8.93 1.75c-.1.16-.26.25-.43.25-.08 0-.17-.02-.25-.07l-3.5-2c-.24-.13-.32-.44-.18-.68s.44-.32.68-.18l3.5 2c.24.13.32.44.18.68z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- LinkedIn -->
+                        <a class="resp-sharing-button__link"
+                            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fcovidvisualizer.com&amp;title=&amp;summary=&amp;source=https%3A%2F%2Fcovidvisualizer.com"
+                            target="_blank" rel="noopener" aria-label="">
+                            <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--small">
+                                <div aria-hidden="true"
+                                    class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path
+                                            d="M6.5 21.5h-5v-13h5v13zM4 6.5C2.5 6.5 1.5 5.3 1.5 4s1-2.4 2.5-2.4c1.6 0 2.5 1 2.6 2.5 0 1.4-1 2.5-2.6 2.5zm11.5 6c-1 0-2 1-2 2v7h-5v-13h5V10s1.6-1.5 4-1.5c3 0 5 2.2 5 6.3v6.7h-5v-7c0-1-1-2-2-2z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+                        <br/><br/>
+                        <p class="tiny"><a href="https://www.privacypolicygenerator.info/live.php?token=HTejovwq8oDcxiJjdUy2RnRK1We2VqU8" target="_blank">Privacy Policy</a></p>
+                </main>
+            </div>
+        </div>
+    </div>
+<script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://ajax.cloudflare.com/cdn-cgi/scripts/7089c43e/cloudflare-static/rocket-loader.min.js" data-cf-settings="42c53f4d953602f533410ab4-|49" defer=""></script><script type="text/javascript">(function(){window['__CF$cv$params']={r:'57a25a0fcf6474e3',m:'6453d8fbb41d5ae98fa9cef7835f7099ea4eeed6-1585241231-1800-AR9VB5VQibEJkbfQUd/y4aJOQA87TiCbEpsAvdGFJSE7k/Beg/TkicKBs3FObBDoXxbJVK5HsJ9mcwSQelKhlT8gRQYjsn85gBgld2BttlNzVA94idl/xARaC7DgHOYPRg==',s:[0x1a26c8438b,0x7e7dac727b],fb:0,}})();</script></body>
+
+</html>
