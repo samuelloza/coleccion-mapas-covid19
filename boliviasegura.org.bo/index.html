@@ -95,15 +95,15 @@
 
 	function getCounter(){
 		var proxy = 'https://cors-anywhere.herokuapp.com/';
-		var url = 'https://www.boliviasegura.gob.bo/wp-content/json/api.php';
+		var url = 'https://boliviasegura.agetic.gob.bo/wp-content/json/api.php';
 		$.ajax({
 			type: 'get',
 			url: proxy + url,
 			crossDomain: true,
 			headers: {
-              "accept": "application/json",
-              "Access-Control-Allow-Origin":"*"
-          	},
+                             "accept": "application/json",
+                             "Access-Control-Allow-Origin":"*"
+          	        },
 			dataType: 'json',
 			data: {},
 			success: function (response){
